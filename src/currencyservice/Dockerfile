@@ -12,4 +12,4 @@ COPY . .
 
 EXPOSE 7000
 
-ENTRYPOINT ["server.js" ]
+ENTRYPOINT ["node", "server.js" ]
