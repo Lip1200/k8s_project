@@ -1,4 +1,5 @@
 {{- if .Values.autoscaling.enabled }}
+{{- range $name, $service := .Values.services }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
