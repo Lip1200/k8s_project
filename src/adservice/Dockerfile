@@ -1,4 +1,4 @@
-FROM eclipse-temurin:22-jdk-alpine
+FROM eclipse-temurin:19-jdk
 
 WORKDIR /app
 
@@ -9,4 +9,5 @@ RUN chmod +x gradlew && \
     ./gradlew installDist
 
 EXPOSE 9555
+
 ENTRYPOINT ["/app/build/install/hipstershop/bin/AdService"]

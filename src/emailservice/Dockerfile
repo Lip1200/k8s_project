@@ -1,15 +1,17 @@
-FROM python:3.12-alpine
+FROM python:3.12-slim
 
 WORKDIR /emailservice
 
-RUN apt-get update && apt-get install -y wget g++
+RUN apt-get update && apt-get install -y \
+    wget \
+    g++ 
 
-COPY requirements.txt . 
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-COPY . . 
+COPY . .
 
 EXPOSE 8080
 
-ENTRYPOINT [ "python", "email_server.py" ]
+ENTRYPOINT ["python", "email_server.py"]

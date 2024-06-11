@@ -1,0 +1,133 @@
+# Default values for onlineboutique.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: NodePort
+  port: 80
+  nodePort: 30000 
+
+ingress:
+  enabled: true
+  className: ""
+  annotations: {}
+  hosts:
+    - host: 10.195.70.44.nip.io 
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+resources: {}
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+frontend:
+  image: localhost:32000/frontend-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30001
+
+cartservice:
+  image: localhost:32000/cartservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30002
+
+productcatalogservice:
+  image: localhost:32000/productcatalogservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30003
+
+currencyservice:
+  image: localhost:32000/currencyservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30004
+
+paymentservice:
+  image: localhost:32000/paymentservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30005
+
+shippingservice:
+  image: localhost:32000/shippingservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30006
+
+emailservice:
+  image: localhost:32000/emailservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30007
+
+checkoutservice:
+  image: localhost:32000/checkoutservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30008
+
+recommendationservice:
+  image: localhost:32000/recommendationservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30009
+
+adservice:
+  image: localhost:32000/adservice-image:latest
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30010
