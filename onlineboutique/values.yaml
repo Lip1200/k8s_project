@@ -9,9 +9,8 @@ image:
   pullPolicy: IfNotPresent
   tag: ""
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+imagePullSecrets: 
+  - name: gitlab-registry-secret
 
 serviceAccount:
   create: true
@@ -63,70 +62,70 @@ tolerations: []
 affinity: {}
 
 frontend:
-  image: localhost:32000/frontend-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30001
 
 cartservice:
-  image: localhost:32000/cartservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30002
 
 productcatalogservice:
-  image: localhost:32000/productcatalogservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30003
 
 currencyservice:
-  image: localhost:32000/currencyservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30004
 
 paymentservice:
-  image: localhost:32000/paymentservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30005
 
 shippingservice:
-  image: localhost:32000/shippingservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30006
 
 emailservice:
-  image: localhost:32000/emailservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30007
 
 checkoutservice:
-  image: localhost:32000/checkoutservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30008
 
 recommendationservice:
-  image: localhost:32000/recommendationservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
   service:
     type: NodePort
     port: 80
     nodePort: 30009
 
 adservice:
-  image: localhost:32000/adservice-image:latest
+  image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
   service:
     type: NodePort
     port: 80
