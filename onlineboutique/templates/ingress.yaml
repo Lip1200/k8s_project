@@ -1,4 +1,4 @@
-{{- if .Values.networkPolicies.create }}
+{{- if .Values.ingress.enabled}}
 {{- range $service := .Values.services }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -33,37 +33,4 @@ spec:
 {{- end }}
 {{- range $service := .Values.services }}
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ $service.name }}
-  labels:
-    app: {{ $service.name }}
-    {{- include "onlineboutique.labels" $ | nindent 4 }}
-spec:
-  replicas: {{ $.Values.replicaCount }}
-  selector:
-    matchLabels:
-      app: {{ $service.name }}
-  template:
-    metadata:
-      labels:
-        app: {{ $service.name }}
-        {{- include "onlineboutique.selectorLabels" $ | nindent 8 }}
-    spec:
-      containers:
-        - name: {{ $service.name }}
-          image: "{{ $service.image }}"
-          args:
-            - "--disable-profiler=true"
-          ports:
-            - containerPort: 80
-          env:
-            {{- with $service.env }}
-            {{- toYaml . | nindent 12 }}
-            {{- end }}
-          resources:
-            {{- toYaml $.Values.resources | nindent 12 }}
-      imagePullSecrets:
-        - name: {{ $.Values.imagePullSecretsName }}
 {{- end }}
