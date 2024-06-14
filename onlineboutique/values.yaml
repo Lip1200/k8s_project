@@ -63,70 +63,70 @@ affinity: {}
 
 services:
   frontend:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30001
 
   cartservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30002
 
   productcatalogservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30003
 
   currencyservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30004
 
   paymentservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30005
 
   shippingservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30006
 
   emailservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30007
 
   checkoutservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30008
 
   recommendationservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
     service:
       type: NodePort
       port: 80
       nodePort: 30009
 
   adservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:amd64
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
     service:
       type: NodePort
       port: 80
