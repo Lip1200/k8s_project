@@ -1,8 +1,10 @@
+{{- range .Values.services }}
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "{{ include "onlineboutique.fullname" . }}-test-connection"
+  name: "{{ .name }}-test-connection"
   labels:
+    app: {{ .name }}
     {{- include "onlineboutique.labels" . | nindent 4 }}
   annotations:
     "helm.sh/hook": test
@@ -11,5 +13,6 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "onlineboutique.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ .name }}:{{ .port }}']
   restartPolicy: Never
+{{- end }}
