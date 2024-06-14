@@ -1,9 +1,7 @@
 1. Get the application URL by running these commands:
 {{- if .Values.ingress.enabled }}
-{{- range $service := .Values.services }}
-  http://{{ $.Values.ingressHosts[0].host }}/{{ $service.name }}
-{{- end }}
+http://{{ .Values.ingressHosts[0].host }}/frontend
 {{- else }}
-   It looks like you did not specify an ingress host. You can access your service using the following command:
-   kubectl get svc --namespace {{ .Release.Namespace }} -w {{ include "onlineboutique.fullname" . }}
+It looks like you did not specify an ingress host. You can access your service using the following command:
+kubectl get svc --namespace {{ .Release.Namespace }} -w {{ include "onlineboutique.fullname" . }}
 {{- end }}
