@@ -5,7 +5,7 @@ metadata:
   name: "{{ $service.name }}-test-connection"
   labels:
     app: {{ $service.name }}
-    {{- include "onlineboutique.labels" $.Chart | nindent 4 }}
+    {{- include "onlineboutique.labels" $ | nindent 4 }}
   annotations:
     "helm.sh/hook": test
 spec:

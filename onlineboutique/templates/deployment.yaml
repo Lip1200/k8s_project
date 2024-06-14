@@ -1,29 +1,33 @@
-{{- range .Values.services }}
+{{- range $service := .Values.services }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .name }}
+  name: {{ $service.name }}
   labels:
-    app: {{ .name }}
-    {{- include "onlineboutique.labels" . | nindent 4 }}
+    app: {{ $service.name }}
+    {{- include "onlineboutique.labels" $ | nindent 4 }}
 spec:
   replicas: {{ $.Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .name }}
+      app: {{ $service.name }}
   template:
     metadata:
       labels:
-        app: {{ .name }}
-        {{- include "onlineboutique.selectorLabels" . | nindent 8 }}
+        app: {{ $service.name }}
+        {{- include "onlineboutique.selectorLabels" $ | nindent 8 }}
     spec:
       containers:
-        - name: {{ .name }}
-          image: "{{ .image }}"
+        - name: {{ $service.name }}
+          image: "{{ $service.image }}"
           args:
             - "--disable-profiler=true"
           ports:
             - containerPort: 80
+          env:
+            {{- with $service.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           livenessProbe:
             httpGet:
               path: /
@@ -40,5 +44,5 @@ spec:
             {{- toYaml $.Values.resources | nindent 12 }}
       imagePullSecrets:
         - name: {{ $.Values.imagePullSecretsName }}
-      serviceAccountName: {{ include "onlineboutique.serviceAccountName" . }}
+      serviceAccountName: {{ include "onlineboutique.serviceAccountName" $ }}
 {{- end }}
