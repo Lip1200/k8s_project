@@ -22,6 +22,7 @@ ingressAnnotations:
 ingressHosts:
   - host: 10.195.70.44
     paths:
+      - path: /
         pathType: Prefix
 autoscaling:
   enabled: true
