@@ -11,6 +11,7 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
+    {{- if .Values.ingress.ingressHosts }}
     - host: {{ (index .Values.ingress.ingressHosts 0).host | quote }}
       http:
         paths:
@@ -23,5 +24,5 @@ spec:
                 port:
                   number: {{ $service.port }}
           {{- end }}
----
+    {{- end }}
 {{- end }}
