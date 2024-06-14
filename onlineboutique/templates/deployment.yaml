@@ -11,6 +11,7 @@ spec:
   selector:
     matchLabels:
       app: {{ $service.name }}
+      {{- include "onlineboutique.selectorLabels" $ | nindent 8 }}
   template:
     metadata:
       labels:
