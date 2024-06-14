@@ -70,7 +70,7 @@ services:
     port: 80
     env:
       - name: EXTRA_LATENCY
-        value: "5,5s"
+        value: "5s"
   - name: currencyservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
     port: 80
