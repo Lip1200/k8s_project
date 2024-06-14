@@ -22,6 +22,11 @@ spec:
             - containerPort: {{ $service.port }}
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
+          env:
+            {{- range $env := $service.env }}
+            - name: {{ $env.name }}
+              value: {{ $env.value | quote }}
+            {{- end }}
       imagePullSecrets:
         - name: {{ $.Values.imagePullSecretsName }}
 ---

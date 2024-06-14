@@ -5,84 +5,22 @@ metadata:
   name: onlineboutique-ingress
   namespace: onlineboutique
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "60s"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
+    {{- range $key, $value := .Values.ingress.ingressAnnotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
-  ingressClassName: nginx
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
   rules:
-    - host: 10.195.70.44.nip.io
+    - host: {{ (index .Values.ingress.ingressHosts 0).host }}
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          {{- range $service := .Values.services }}
+          - path: {{ if eq $service.name "frontend" }}/{{ else }}/{{ $service.name }}{{ end }}
+            pathType: {{ (index (index .Values.ingress.ingressHosts 0).paths 0).pathType }}
             backend:
               service:
-                name: frontend
+                name: {{ $service.name }}
                 port:
-                  number: 80
-          - path: /adservice
-            pathType: Prefix
-            backend:
-              service:
-                name: adservice
-                port:
-                  number: 80
-          - path: /cartservice
-            pathType: Prefix
-            backend:
-              service:
-                name: cartservice
-                port:
-                  number: 80
-          - path: /checkoutservice
-            pathType: Prefix
-            backend:
-              service:
-                name: checkoutservice
-                port:
-                  number: 80
-          - path: /currencyservice
-            pathType: Prefix
-            backend:
-              service:
-                name: currencyservice
-                port:
-                  number: 80
-          - path: /emailservice
-            pathType: Prefix
-            backend:
-              service:
-                name: emailservice
-                port:
-                  number: 80
-          - path: /paymentservice
-            pathType: Prefix
-            backend:
-              service:
-                name: paymentservice
-                port:
-                  number: 80
-          - path: /productcatalogservice
-            pathType: Prefix
-            backend:
-              service:
-                name: productcatalogservice
-                port:
-                  number: 80
-          - path: /recommendationservice
-            pathType: Prefix
-            backend:
-              service:
-                name: recommendationservice
-                port:
-                  number: 80
-          - path: /shippingservice
-            pathType: Prefix
-            backend:
-              service:
-                name: shippingservice
-                port:
-                  number: 80
+                  number: {{ $service.port }}
+          {{- end }}
 {{- end }}
