@@ -1,16 +1,17 @@
-{{- range $name, $service := .Values.services }}
+{{- range .Values.services }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $name }}
+  name: {{ .name }}
   labels:
-    app: {{ $name }}
-    {{- include "onlineboutique.labels" $ | nindent 4 }}
+    app: {{ .name }}
+    {{- include "onlineboutique.labels" . | nindent 4 }}
 spec:
-  type: {{ $service.service.type }}
+  type: {{ $.Values.serviceType }}
   ports:
-    - port: {{ $service.service.port }}
+    - port: {{ $.Values.servicePort }}
       targetPort: 80
+      nodePort: {{ .nodePort }}
   selector:
-    app: {{ $name }}
+    app: {{ .name }}
 {{- end }}
