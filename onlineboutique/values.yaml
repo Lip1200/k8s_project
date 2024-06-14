@@ -41,6 +41,7 @@ resources:
 
 services:
   - name: frontend
+    type: LoadBalancer
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
     port: 80
     env:
