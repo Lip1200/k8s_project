@@ -31,6 +31,5 @@ spec:
   {{- if $.Values.tls }}
 {{- end }}
 {{- end }}
-{{- range $service := .Values.services }}
 ---
 {{- end }}
