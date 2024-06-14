@@ -64,6 +64,9 @@ affinity: {}
 services:
   frontend:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -71,6 +74,9 @@ services:
 
   cartservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -78,6 +84,9 @@ services:
 
   productcatalogservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -85,6 +94,9 @@ services:
 
   currencyservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -92,6 +104,9 @@ services:
 
   paymentservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -99,6 +114,9 @@ services:
 
   shippingservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -106,6 +124,9 @@ services:
 
   emailservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -113,6 +134,9 @@ services:
 
   checkoutservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -120,6 +144,9 @@ services:
 
   recommendationservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
@@ -127,6 +154,9 @@ services:
 
   adservice:
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
+    env:
+      - name: DISABLE_PROFILER
+        value: "true"
     service:
       type: NodePort
       port: 80
