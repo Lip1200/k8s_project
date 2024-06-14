@@ -20,7 +20,7 @@ ingressAnnotations:
   nginx.ingress.kubernetes.io/proxy-read-timeout: "60s"
   nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
 ingressHosts:
-  - host: 10.195.70.44
+  - host: 10.195.70.44.nip.io
     paths:
         pathType: Prefix
 autoscaling:

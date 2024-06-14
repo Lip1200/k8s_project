@@ -1,16 +1,16 @@
 {{- if .Values.autoscaling.enabled }}
-{{- range .Values.services }}
+{{- range $service := .Values.services }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ .name }}
+  name: {{ $service.name }}
   labels:
-    app: {{ .name }}
+    app: {{ $service.name }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ .name }}
+    name: {{ $service.name }}
   minReplicas: {{ $.Values.autoscaling.minReplicas }}
   maxReplicas: {{ $.Values.autoscaling.maxReplicas }}
   metrics:
@@ -26,6 +26,6 @@ spec:
         target:
           type: Utilization
           averageUtilization: {{ $.Values.autoscaling.targetMemoryUtilizationPercentage }}
-{{- end }}
 ---
+{{- end }}
 {{- end }}

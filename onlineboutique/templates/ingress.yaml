@@ -6,15 +6,13 @@ metadata:
   name: {{ $service.name }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$1
-    {{- range $key, $value := $.Values.ingressAnnotations }}
+    {{- range $key, $value := $.Values.ingress.ingressAnnotations }}
     {{ $key }}: {{ $value | quote }}
     {{- end }}
 spec:
-  {{- if $.Values.ingressClassName }}
-  ingressClassName: {{ $.Values.ingressClassName }}
-  {{- end }}
+  ingressClassName: {{ $.Values.ingress.ingressClassName }}
   rules:
-    {{- range $.Values.ingressHosts }}
+    {{- range $.Values.ingress.ingressHosts }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -25,7 +23,7 @@ spec:
                 name: {{ $service.name }}
                 port:
                   number: 80
-          {{- end }}
     {{- end }}
 ---
+{{- end }}
 {{- end }}
