@@ -20,6 +20,8 @@ spec:
       containers:
         - name: {{ $name }}
           image: "{{ $service.image }}"
+          args:
+            - "--disable-profiler=true"
           ports:
             - containerPort: 80
           env:
