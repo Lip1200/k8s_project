@@ -1,0 +1,1327 @@
+Release "my-onlineboutique" has been upgraded. Happy Helming!
+NAME: my-onlineboutique
+LAST DEPLOYED: Fri Jun 14 13:56:13 2024
+NAMESPACE: onlineboutique
+STATUS: pending-upgrade
+REVISION: 8
+USER-SUPPLIED VALUES:
+{}
+
+COMPUTED VALUES:
+affinity: {}
+autoscaling:
+  enabled: true
+  maxReplicas: 3
+  minReplicas: 1
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+image:
+  pullPolicy: IfNotPresent
+  repository: nginx
+  tag: ""
+imagePullSecrets:
+- name: gitlab-registry-secret
+ingress:
+  annotations: {}
+  className: ""
+  enabled: true
+  hosts:
+  - host: 10.195.70.44.nip.io
+    paths:
+    - path: /
+      pathType: ImplementationSpecific
+  tls: []
+nodeSelector: {}
+podAnnotations: {}
+podSecurityContext: {}
+replicaCount: 1
+resources: {}
+securityContext: {}
+service:
+  nodePort: 30000
+  port: 80
+  type: NodePort
+serviceAccount:
+  annotations: {}
+  create: true
+  name: ""
+services:
+  adservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
+    service:
+      nodePort: 30010
+      port: 80
+      type: NodePort
+  cartservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
+    service:
+      nodePort: 30002
+      port: 80
+      type: NodePort
+  checkoutservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
+    service:
+      nodePort: 30008
+      port: 80
+      type: NodePort
+  currencyservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
+    service:
+      nodePort: 30004
+      port: 80
+      type: NodePort
+  emailservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
+    service:
+      nodePort: 30007
+      port: 80
+      type: NodePort
+  frontend:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
+    service:
+      nodePort: 30001
+      port: 80
+      type: NodePort
+  paymentservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
+    service:
+      nodePort: 30005
+      port: 80
+      type: NodePort
+  productcatalogservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
+    service:
+      nodePort: 30003
+      port: 80
+      type: NodePort
+  recommendationservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
+    service:
+      nodePort: 30009
+      port: 80
+      type: NodePort
+  shippingservice:
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
+    service:
+      nodePort: 30006
+      port: 80
+      type: NodePort
+tolerations: []
+
+HOOKS:
+---
+# Source: onlineboutique/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "onlineboutique-my-onlineboutique-test-connection"
+  labels:
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['onlineboutique-my-onlineboutique:80']
+  restartPolicy: Never
+MANIFEST:
+---
+# Source: onlineboutique/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: onlineboutique-my-onlineboutique
+  labels:
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: onlineboutique/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: adservice
+  labels:
+    app: adservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: adservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: cartservice
+  labels:
+    app: cartservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: cartservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: checkoutservice
+  labels:
+    app: checkoutservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: checkoutservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: currencyservice
+  labels:
+    app: currencyservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: currencyservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: emailservice
+  labels:
+    app: emailservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: emailservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: frontend
+apiVersion: v1
+kind: Service
+metadata:
+  name: paymentservice
+  labels:
+    app: paymentservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: paymentservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: productcatalogservice
+  labels:
+    app: productcatalogservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: productcatalogservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendationservice
+  labels:
+    app: recommendationservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: recommendationservice
+apiVersion: v1
+kind: Service
+metadata:
+  name: shippingservice
+  labels:
+    app: shippingservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: shippingservice
+---
+# Source: onlineboutique/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adservice
+  labels:
+    app: adservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adservice
+  template:
+    metadata:
+      labels:
+        app: adservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: adservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cartservice
+  labels:
+    app: cartservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cartservice
+  template:
+    metadata:
+      labels:
+        app: cartservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: cartservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: checkoutservice
+  labels:
+    app: checkoutservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: checkoutservice
+  template:
+    metadata:
+      labels:
+        app: checkoutservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: checkoutservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currencyservice
+  labels:
+    app: currencyservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: currencyservice
+  template:
+    metadata:
+      labels:
+        app: currencyservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: currencyservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emailservice
+  labels:
+    app: emailservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emailservice
+  template:
+    metadata:
+      labels:
+        app: emailservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: emailservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: frontend
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paymentservice
+  labels:
+    app: paymentservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: paymentservice
+  template:
+    metadata:
+      labels:
+        app: paymentservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: paymentservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productcatalogservice
+  labels:
+    app: productcatalogservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productcatalogservice
+  template:
+    metadata:
+      labels:
+        app: productcatalogservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: productcatalogservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendationservice
+  labels:
+    app: recommendationservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendationservice
+  template:
+    metadata:
+      labels:
+        app: recommendationservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: recommendationservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shippingservice
+  labels:
+    app: shippingservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shippingservice
+  template:
+    metadata:
+      labels:
+        app: shippingservice
+        app.kubernetes.io/name: onlineboutique
+        app.kubernetes.io/instance: my-onlineboutique
+    spec:
+      containers:
+        - name: shippingservice
+          image: "registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest"
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {}
+      imagePullSecrets:
+        - name: gitlab-registry-secret
+      serviceAccountName: onlineboutique-my-onlineboutique
+---
+# Source: onlineboutique/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: adservice
+  labels:
+    app: adservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: adservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: cartservice
+  labels:
+    app: cartservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: cartservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: checkoutservice
+  labels:
+    app: checkoutservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: checkoutservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: currencyservice
+  labels:
+    app: currencyservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: currencyservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: emailservice
+  labels:
+    app: emailservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: emailservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: paymentservice
+  labels:
+    app: paymentservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: paymentservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: productcatalogservice
+  labels:
+    app: productcatalogservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: productcatalogservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: recommendationservice
+  labels:
+    app: recommendationservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: recommendationservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: shippingservice
+  labels:
+    app: shippingservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: shippingservice
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80
+---
+# Source: onlineboutique/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adservice
+  labels:
+    app: adservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: adservice
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cartservice
+  labels:
+    app: cartservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: cartservice
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: checkoutservice
+  labels:
+    app: checkoutservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: checkoutservice
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: currencyservice
+  labels:
+    app: currencyservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: currencyservice
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: emailservice
+  labels:
+    app: emailservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: emailservice
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: paymentservice
+  labels:
+    app: paymentservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: paymentservice
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: productcatalogservice
+  labels:
+    app: productcatalogservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: productcatalogservice
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: recommendationservice
+  labels:
+    app: recommendationservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: recommendationservice
+                port:
+                  number: 80
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shippingservice
+  labels:
+    app: shippingservice
+    helm.sh/chart: onlineboutique-0.1.0
+    app.kubernetes.io/name: onlineboutique
+    app.kubernetes.io/instance: my-onlineboutique
+    app.kubernetes.io/version: 1.16.0
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - host: "10.195.70.44.nip.io"
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: shippingservice
+                port:
+                  number: 80
+
+NOTES:
+1. Get the application URL by running these commands:
+  http://10.195.70.44.nip.io/
