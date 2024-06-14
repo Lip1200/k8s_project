@@ -14,10 +14,10 @@ Generate the full name of the chart.
 Generate the name of the service account to use.
 */}}
 {{- define "onlineboutique.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "onlineboutique.fullname" .) .Values.serviceAccount.name }}
+{{- if .Values.serviceAccountCreate }}
+{{- default (include "onlineboutique.fullname" .) .Values.serviceAccountName }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- default "default" .Values.serviceAccountName }}
 {{- end }}
 {{- end }}
 
