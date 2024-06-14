@@ -3,11 +3,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ $service.name }}
+  namespace: onlineboutique
 spec:
-  type: {{ $.Values.serviceType }}
+  type: ClusterIP
   ports:
-    - port: {{ $service.port }}
-      targetPort: {{ $service.port }}
+    - port: 80
+      targetPort: 80
   selector:
     app: {{ $service.name }}
 ---
