@@ -41,11 +41,8 @@ resources:
 
 services:
   - name: frontend
-    type: LoadBalancer
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
-    ports:
-      - port: 80
-        targetPort: 8080
+    port: 80
     env:
       - name: PRODUCT_CATALOG_SERVICE_ADDR
         value: productcatalogservice:80
