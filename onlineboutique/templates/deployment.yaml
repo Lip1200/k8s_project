@@ -45,4 +45,5 @@ spec:
       imagePullSecrets:
         - name: {{ $.Values.imagePullSecretsName }}
       serviceAccountName: {{ include "onlineboutique.serviceAccountName" $ }}
+---
 {{- end }}

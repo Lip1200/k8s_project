@@ -15,4 +15,5 @@ spec:
       command: ['wget']
       args: ['{{ $service.name }}:{{ $.Values.servicePort }}']
   restartPolicy: Never
+---
 {{- end }}
