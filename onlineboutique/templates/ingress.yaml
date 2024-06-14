@@ -11,18 +11,16 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
   rules:
-    {{- if .Values.ingress.ingressHosts }}
     - host: {{ (index .Values.ingress.ingressHosts 0).host | quote }}
       http:
         paths:
           {{- range $service := .Values.services }}
           - path: {{ if eq $service.name "frontend" }}/{{ else }}/{{ $service.name }}{{ end }}
-            pathType: {{ (index (index .Values.ingress.ingressHosts 0).paths 0).pathType | quote }}
+            pathType: Prefix
             backend:
               service:
                 name: {{ $service.name }}
                 port:
                   number: {{ $service.port }}
           {{- end }}
-    {{- end }}
 {{- end }}
