@@ -55,7 +55,11 @@ services:
       - name: CHECKOUT_SERVICE_ADDR
         value: checkoutservice:80
       - name: SHIPPING_SERVICE_ADDR
-        value: shippingservice:80
+        value: "shippingservice:8080"
+      - name: AD_SERVICE_ADDR
+        value: "adservice:8080"
+    ports:
+        - containerPort: 8080
   - name: cartservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
     port: 80
@@ -69,7 +73,9 @@ services:
       - name: PORT
         value: "8080"
       - name: GOOGLE_CLOUD_PROJECT
-        value: "your-project-id"
+        value: "project-id"
+      - name: GOOGLE_APPLICATION_CREDENTIALS
+        value: "/etc/credentials/gcp-credentials.json"
   - name: paymentservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
     port: 80

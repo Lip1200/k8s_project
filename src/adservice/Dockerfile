@@ -6,7 +6,7 @@ COPY . .
 
 RUN chmod +x gradlew && \
     ./gradlew downloadRepos && \
-    ./gradlew installDist
+    ./gradlew installDist --no-daemon
 
 EXPOSE 9555
 
