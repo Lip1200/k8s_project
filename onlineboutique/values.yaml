@@ -50,49 +50,39 @@ services:
   - name: frontend
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
     port: 80
-    nodePort: 30001
 
   - name: cartservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
     port: 80
-    nodePort: 30002
 
   - name: productcatalogservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
     port: 80
-    nodePort: 30003
 
   - name: currencyservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
     port: 80
-    nodePort: 30004
 
   - name: paymentservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
     port: 80
-    nodePort: 30005
 
   - name: shippingservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
     port: 80
-    nodePort: 30006
 
   - name: emailservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
     port: 80
-    nodePort: 30007
 
   - name: checkoutservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
     port: 80
-    nodePort: 30008
 
   - name: recommendationservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
     port: 80
-    nodePort: 30009
 
   - name: adservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
     port: 80
-    nodePort: 30010
