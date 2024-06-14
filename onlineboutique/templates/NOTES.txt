@@ -1,2 +1,2 @@
 1. Get the application URL by running these commands:
-http://10.195.70.44/frontend
+http://10.195.70.44
