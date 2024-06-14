@@ -1,7 +1,5 @@
 replicaCount: 1
 
-fullnameOverride: ""
-
 imagePullSecretsName: gitlab-registry-secret
 
 serviceAccount:
