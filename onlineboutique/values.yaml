@@ -52,6 +52,8 @@ services:
         value: cartservice:80
       - name: RECOMMENDATION_SERVICE_ADDR
         value: recommendationservice:80
+      - name: CHECKOUT_SERVICE_ADDR
+        value: checkoutservice:80
   - name: cartservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
     port: 80
