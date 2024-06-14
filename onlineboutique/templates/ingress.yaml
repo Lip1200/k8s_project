@@ -16,15 +16,13 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-          {{- range .paths }}
           - path: /{{ $service.name }}
-            pathType: {{ .pathType | quote }}
+            pathType: {{ .paths.pathType | quote }}
             backend:
               service:
                 name: {{ $service.name }}
                 port:
                   number: 80
-          {{- end }}
     {{- end }}
 {{- end }}
 ---
