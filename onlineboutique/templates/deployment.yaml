@@ -19,29 +19,19 @@ spec:
     spec:
       containers:
         - name: {{ $name }}
-          image: "{{ $service.image }}"
+          image: "{{ $.Values.image.repository }}/{{ $service.image }}:{{ $.Values.image.tag }}"
           args:
-            - "--disable-profiler=true"
-          ports:
-            - containerPort: 80
-          env:
-            {{- with $service.env }}
+            {{- with $service.args }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 30
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 80
-            initialDelaySeconds: 30
-            periodSeconds: 10
+          ports:
+            - containerPort: 80
           resources:
+            {{- if $service.resources }}
+            {{- toYaml $service.resources | nindent 12 }}
+            {{- else }}
             {{- toYaml $.Values.resources | nindent 12 }}
+            {{- end }}
       {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

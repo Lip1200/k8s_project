@@ -1,13 +1,9 @@
-# Default values for onlineboutique.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: registry.gitlab.unige.ch/filipe.ramos/k8s-project
   pullPolicy: IfNotPresent
-  tag: ""
+  tag: latest
 
 imagePullSecrets: 
   - name: gitlab-registry-secret
@@ -20,20 +16,11 @@ serviceAccount:
 podAnnotations: {}
 
 podSecurityContext: {}
-  # fsGroup: 2000
-
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
 
 service:
   type: NodePort
   port: 80
-  nodePort: 30000 
 
 ingress:
   enabled: true
@@ -46,24 +33,28 @@ ingress:
           pathType: ImplementationSpecific
   tls: []
 
-resources: {}
-
 autoscaling:
   enabled: true
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 5
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
 
 services:
   frontend:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
+    image: frontend
     args:
       - "--disable-profiler=true"
     service:
@@ -72,7 +63,7 @@ services:
       nodePort: 30001
 
   cartservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
+    image: cartservice
     args:
       - "--disable-profiler=true"
     service:
@@ -81,7 +72,7 @@ services:
       nodePort: 30002
 
   productcatalogservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
+    image: productcatalogservice
     args:
       - "--disable-profiler=true"
     service:
@@ -90,7 +81,7 @@ services:
       nodePort: 30003
 
   currencyservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
+    image: currencyservice
     args:
       - "--disable-profiler=true"
     service:
@@ -99,7 +90,7 @@ services:
       nodePort: 30004
 
   paymentservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
+    image: paymentservice
     args:
       - "--disable-profiler=true"
     service:
@@ -108,7 +99,7 @@ services:
       nodePort: 30005
 
   shippingservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
+    image: shippingservice
     args:
       - "--disable-profiler=true"
     service:
@@ -117,7 +108,7 @@ services:
       nodePort: 30006
 
   emailservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
+    image: emailservice
     args:
       - "--disable-profiler=true"
     service:
@@ -126,7 +117,7 @@ services:
       nodePort: 30007
 
   checkoutservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
+    image: checkoutservice
     args:
       - "--disable-profiler=true"
     service:
@@ -135,7 +126,7 @@ services:
       nodePort: 30008
 
   recommendationservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
+    image: recommendationservice
     args:
       - "--disable-profiler=true"
     service:
@@ -144,7 +135,7 @@ services:
       nodePort: 30009
 
   adservice:
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
+    image: adservice
     args:
       - "--disable-profiler=true"
     service:
