@@ -1,4 +1,4 @@
-{{- if .Values.autoscalingEnabled }}
+{{- if .Values.autoscaling.enabled }}
 {{- range .Values.services }}
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
@@ -11,20 +11,20 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ .name }}
-  minReplicas: {{ $.Values.autoscalingMinReplicas }}
-  maxReplicas: {{ $.Values.autoscalingMaxReplicas }}
+  minReplicas: {{ $.Values.autoscaling.minReplicas }}
+  maxReplicas: {{ $.Values.autoscaling.maxReplicas }}
   metrics:
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: {{ $.Values.autoscalingTargetCPUUtilizationPercentage }}
+          averageUtilization: {{ $.Values.autoscaling.targetCPUUtilizationPercentage }}
     - type: Resource
       resource:
         name: memory
         target:
           type: Utilization
-          averageUtilization: {{ $.Values.autoscalingTargetMemoryUtilizationPercentage }}
+          averageUtilization: {{ $.Values.autoscaling.targetMemoryUtilizationPercentage }}
 {{- end }}
 {{- end }}

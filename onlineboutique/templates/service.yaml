@@ -7,9 +7,9 @@ metadata:
     app: {{ $service.name }}
     {{- include "onlineboutique.labels" $ | nindent 4 }}
 spec:
-  type: {{ $.Values.serviceType }}
+  type: {{ $.Values.service.type }}
   ports:
-    - port: {{ $.Values.servicePort }}
+    - port: {{ $.Values.service.port }}
       targetPort: 80
       nodePort: {{ $service.nodePort }}
   selector:

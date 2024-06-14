@@ -1,4 +1,4 @@
-{{- if .Values.ingressEnabled -}}
+{{- if .Values.ingress.enabled -}}
 {{- range .Values.services }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -6,14 +6,14 @@ metadata:
   name: {{ .name }}
   labels:
     app: {{ .name }}
-    {{- include "onlineboutique.labels" . | nindent 4 }}
-  {{- with $.Values.ingressAnnotations }}
+    {{- include "onlineboutique.labels" $ | nindent 4 }}
+  {{- with $.Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   rules:
-    {{- range $.Values.ingressHosts }}
+    {{- range $.Values.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -26,12 +26,12 @@ spec:
               service:
                 name: {{ $.name }}
                 port:
-                  number: {{ $.Values.servicePort }}
+                  number: {{ $.Values.service.port }}
           {{- end }}
     {{- end }}
-  {{- if $.Values.tls }}
+  {{- if $.Values.ingress.tls }}
   tls:
-    {{- range $.Values.tls }}
+    {{- range $.Values.ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
