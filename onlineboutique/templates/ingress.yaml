@@ -6,6 +6,7 @@ metadata:
   name: {{ $name }}
   labels:
     app: {{ $name }}
+    {{- include "onlineboutique.labels" . | nindent 4 }}
   {{- with $.Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

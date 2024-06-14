@@ -5,6 +5,7 @@ metadata:
   name: {{ $name }}
   labels:
     app: {{ $name }}
+    {{- include "onlineboutique.labels" . | nindent 4 }}
 spec:
   {{- if not $.Values.autoscaling.enabled }}
   replicas: {{ $.Values.replicaCount }}
@@ -16,6 +17,7 @@ spec:
     metadata:
       labels:
         app: {{ $name }}
+        {{- include "onlineboutique.selectorLabels" . | nindent 8 }}
     spec:
       containers:
         - name: {{ $name }}
@@ -40,4 +42,5 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "onlineboutique.serviceAccountName" . }}
 {{- end }}

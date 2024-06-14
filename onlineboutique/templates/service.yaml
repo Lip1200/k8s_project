@@ -5,6 +5,7 @@ metadata:
   name: {{ $name }}
   labels:
     app: {{ $name }}
+    {{- include "onlineboutique.labels" . | nindent 4 }}
 spec:
   type: {{ $service.service.type }}
   ports:
