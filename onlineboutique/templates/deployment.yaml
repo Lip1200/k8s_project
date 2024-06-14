@@ -15,6 +15,8 @@ spec:
       labels:
         app: {{ $service.name }}
     spec:
+      imagePullSecrets:
+        - name: {{ $.Values.imagePullSecretsName }}
       containers:
         - name: {{ $service.name }}
           image: "{{ $service.image }}"
@@ -27,8 +29,6 @@ spec:
             - name: {{ $env.name }}
               value: {{ $env.value | quote }}
             {{- end }}
-      imagePullSecrets:
-        - name: {{ $.Values.imagePullSecretsName }}
 ---
 {{- end }}
 
