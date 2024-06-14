@@ -50,6 +50,8 @@ services:
         value: currencyservice:80
       - name: CART_SERVICE_ADDR
         value: cartservice:80
+      - name: RECOMMENDATION_SERVICE_ADDR
+        value: recommendationservice:80
   - name: cartservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
     port: 80
@@ -62,12 +64,16 @@ services:
     env:
       - name: PORT
         value: "8080"
+      - name: GOOGLE_CLOUD_PROJECT
+        value: "your-project-id"
   - name: paymentservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
     port: 80
     env:
       - name: PORT
         value: "8080"
+      - name: GOOGLE_CLOUD_PROJECT
+        value: "your-project-id"
   - name: shippingservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
     port: 80
