@@ -1,4 +1,5 @@
 {{- range $name, $service := .Values.services }}
+{{- if $service.create }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,22 +20,33 @@ spec:
     spec:
       containers:
         - name: {{ $name }}
-          image: "{{ $.Values.image.repository }}/{{ $service.image }}:{{ $.Values.image.tag }}"
+          image: "{{ $service.image }}"
           args:
-            {{- with $service.args }}
-            {{- toYaml . | nindent 12 }}
-            {{- end }}
+            - "--disable-profiler=true"
           ports:
             - containerPort: 80
-          resources:
-            {{- if $service.resources }}
-            {{- toYaml $service.resources | nindent 12 }}
-            {{- else }}
-            {{- toYaml $.Values.resources | nindent 12 }}
+          env:
+            {{- with $service.env }}
+            {{- toYaml . | nindent 12 }}
             {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          resources:
+            {{- toYaml $.Values.resources | nindent 12 }}
       {{- with $.Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "onlineboutique.serviceAccountName" $ }}
+{{- end }}
 {{- end }}

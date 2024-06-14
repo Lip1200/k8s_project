@@ -54,7 +54,8 @@ resources:
 
 services:
   frontend:
-    image: frontend
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -63,7 +64,8 @@ services:
       nodePort: 30001
 
   cartservice:
-    image: cartservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -72,7 +74,8 @@ services:
       nodePort: 30002
 
   productcatalogservice:
-    image: productcatalogservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -81,7 +84,8 @@ services:
       nodePort: 30003
 
   currencyservice:
-    image: currencyservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -90,7 +94,8 @@ services:
       nodePort: 30004
 
   paymentservice:
-    image: paymentservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -99,7 +104,8 @@ services:
       nodePort: 30005
 
   shippingservice:
-    image: shippingservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -108,7 +114,8 @@ services:
       nodePort: 30006
 
   emailservice:
-    image: emailservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -117,7 +124,8 @@ services:
       nodePort: 30007
 
   checkoutservice:
-    image: checkoutservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -126,7 +134,8 @@ services:
       nodePort: 30008
 
   recommendationservice:
-    image: recommendationservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
     args:
       - "--disable-profiler=true"
     service:
@@ -135,7 +144,8 @@ services:
       nodePort: 30009
 
   adservice:
-    image: adservice
+    create: true
+    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
     args:
       - "--disable-profiler=true"
     service:
