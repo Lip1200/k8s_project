@@ -28,11 +28,12 @@ ingressHosts:
         pathType: ImplementationSpecific
 tls: []
 
-autoscalingEnabled: true
-autoscalingMinReplicas: 1
-autoscalingMaxReplicas: 3
-autoscalingTargetCPUUtilizationPercentage: 80
-autoscalingTargetMemoryUtilizationPercentage: 80
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 tolerations: []
