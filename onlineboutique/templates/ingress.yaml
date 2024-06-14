@@ -18,8 +18,7 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
+          - path: /{{ $service.name }}
             pathType: {{ .pathType }}
             backend:
               service:
