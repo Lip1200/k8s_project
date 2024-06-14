@@ -25,10 +25,10 @@ spec:
             - "--disable-profiler=true"
           ports:
             - containerPort: 80
+          {{- if $service.env }}
           env:
-            {{- with $service.env }}
-            {{- toYaml . | nindent 12 }}
-            {{- end }}
+            {{- toYaml $service.env | nindent 12 }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /
