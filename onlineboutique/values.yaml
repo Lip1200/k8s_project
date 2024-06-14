@@ -2,37 +2,37 @@ replicaCount: 1
 
 imagePullSecretsName: gitlab-registry-secret
 
-serviceAccount:
-  create: true
-  annotations: {}
-  name: ""
+serviceAccountCreate: true
+serviceAccountAnnotations: {}
+serviceAccountName: ""
 
 podAnnotations: {}
 
 podSecurityContext: {}
 securityContext: {}
 
-service:
-  type: NodePort
-  port: 80
+serviceType: LoadBalancer
+servicePort: 80
 
-ingress:
-  enabled: true
-  className: ""
-  annotations: {}
-  hosts:
-    - host: 10.195.70.44.nip.io
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls: []
+ingressEnabled: true
+ingressClassName: ""
+ingressAnnotations:
+  nginx.ingress.kubernetes.io/rewrite-target: /$1
+  nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  nginx.ingress.kubernetes.io/proxy-read-timeout: "60s"
+  nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
+ingressHosts:
+  - host: 10.195.70.44.nip.io
+    paths:
+      - path: /
+        pathType: ImplementationSpecific
+tls: []
 
-autoscaling:
-  enabled: true
-  minReplicas: 1
-  maxReplicas: 5
-  targetCPUUtilizationPercentage: 80
-  targetMemoryUtilizationPercentage: 80
+autoscalingEnabled: true
+autoscalingMinReplicas: 1
+autoscalingMaxReplicas: 3
+autoscalingTargetCPUUtilizationPercentage: 80
+autoscalingTargetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 tolerations: []
@@ -86,3 +86,9 @@ services:
   - name: adservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
     port: 80
+
+networkPolicies:
+  create: true
+
+authorizationPolicies:
+  create: true
