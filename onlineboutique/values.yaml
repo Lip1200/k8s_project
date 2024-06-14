@@ -54,10 +54,12 @@ services:
         value: recommendationservice:80
       - name: CHECKOUT_SERVICE_ADDR
         value: checkoutservice:80
-      - name: SHIPPING_SERVICE_ADDR
-        value: "shippingservice:8080"
+      - name: SHOPPING_ASSISTANT_SERVICE_ADDR
+        value: "shoppingassistantservice:8080"
       - name: AD_SERVICE_ADDR
         value: "adservice:8080"
+      - name: SHIPPING_SERVICE_ADDR
+        value: "shippingservice:8080"
     ports:
         - containerPort: 8080
   - name: cartservice
