@@ -2,7 +2,6 @@ replicaCount: 1
 
 imagePullSecretsName: gitlab-registry-secret
 
-
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -13,17 +12,18 @@ servicePort: 80
 
 ingress:
   enabled: true
-ingressClassName: "nginx"
-ingressAnnotations:
-  nginx.ingress.kubernetes.io/rewrite-target: /$1
-  nginx.ingress.kubernetes.io/ssl-redirect: "true"
-  nginx.ingress.kubernetes.io/proxy-read-timeout: "60s"
-  nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
-ingressHosts:
-  - host: 10.195.70.44
-    paths:
-      - path: /
-        pathType: Prefix
+  ingressClassName: "nginx"
+  ingressAnnotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60s"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60s"
+  ingressHosts:
+    - host: 10.195.70.44
+      paths:
+        - path: /
+          pathType: Prefix
+
 autoscaling:
   enabled: true
   minReplicas: 1

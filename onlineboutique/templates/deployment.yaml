@@ -19,7 +19,7 @@ spec:
         - name: {{ $service.name }}
           image: "{{ $service.image }}"
           ports:
-            - containerPort: 80
+            - containerPort: {{ $service.port }}
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
       imagePullSecrets:
@@ -27,7 +27,6 @@ spec:
 ---
 {{- end }}
 
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:

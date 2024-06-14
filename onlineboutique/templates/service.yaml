@@ -7,7 +7,7 @@ spec:
   type: {{ $.Values.serviceType }}
   ports:
     - port: {{ $service.port }}
-      targetPort: 80
+      targetPort: {{ $service.port }}
   selector:
     app: {{ $service.name }}
 ---
