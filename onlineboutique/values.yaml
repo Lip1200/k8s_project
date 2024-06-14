@@ -2,9 +2,6 @@ replicaCount: 1
 
 imagePullSecretsName: gitlab-registry-secret
 
-serviceAccountCreate: true
-serviceAccountAnnotations: {}
-serviceAccountName: ""
 
 podAnnotations: {}
 
