@@ -1,7 +1,7 @@
 ### README.md
 
-```markdown
-# K8s Project
+# K8s Project @ https://gitlab.unige.ch/Filipe.Ramos/k8s-project
+
 
 Ce projet Kubernetes déploie plusieurs services d'une boutique en ligne sur un cluster Kubernetes. Les services incluent `frontend`, `cartservice`, `productcatalogservice`, `currencyservice`, `paymentservice`, `shippingservice`, `emailservice`, `checkoutservice`, `recommendationservice`, et `adservice`.
 
@@ -228,4 +228,3 @@ Les contributions sont les bienvenues ! Veuillez créer une issue ou soumettre u
 ## Licence
 
 Ce projet est sous licence Apache 2.0. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
-```
