@@ -73,10 +73,10 @@ services:
         value: "5s"
   - name: currencyservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
-    port: 80
+    port: 7000
     env:
       - name: PORT
-        value: "8080"
+        value: "7000"
       - name: GOOGLE_CLOUD_PROJECT
         value: "project-id"
       - name: GOOGLE_APPLICATION_CREDENTIALS
@@ -85,8 +85,10 @@ services:
         value: './proto/demo.proto'
       - name: HEALTH_PROTO_PATH
         value: './proto/grpc/health/v1/health.proto'
-      - name: PORT
-        value: "8080"
+    volumeMounts:
+      - name: gcp-credentials
+        mountPath: /etc/credentials
+        readOnly: true
   - name: paymentservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
     port: 80
