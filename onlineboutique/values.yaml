@@ -42,38 +42,48 @@ resources:
 services:
   - name: frontend
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
-    port: 80
-    env:
-      - name: PRODUCT_CATALOG_SERVICE_ADDR
-        value: productcatalogservice:80
-      - name: CURRENCY_SERVICE_ADDR
-        value: currencyservice:80
-      - name: CART_SERVICE_ADDR
-        value: cartservice:80
-      - name: RECOMMENDATION_SERVICE_ADDR
-        value: recommendationservice:80
-      - name: CHECKOUT_SERVICE_ADDR
-        value: checkoutservice:80
-      - name: SHOPPING_ASSISTANT_SERVICE_ADDR
-        value: "shoppingassistantservice:8080"
-      - name: AD_SERVICE_ADDR
-        value: "adservice:8080"
-      - name: SHIPPING_SERVICE_ADDR
-        value: "shippingservice:8080"
     ports:
-        - containerPort: 8080
+      - containerPort: 8080
+    env:
+      - name: PORT
+        value: "8080"
+      - name: PRODUCT_CATALOG_SERVICE_ADDR
+        value: "productcatalogservice:3550"
+      - name: CURRENCY_SERVICE_ADDR
+        value: "currencyservice:7000"
+      - name: CART_SERVICE_ADDR
+        value: "cartservice:7070"
+      - name: RECOMMENDATION_SERVICE_ADDR
+        value: "recommendationservice:8080"
+      - name: SHIPPING_SERVICE_ADDR
+        value: "shippingservice:50051"
+      - name: CHECKOUT_SERVICE_ADDR
+        value: "checkoutservice:5050"
+      - name: AD_SERVICE_ADDR
+        value: "adservice:9555"
+      - name: SHOPPING_ASSISTANT_SERVICE_ADDR
+        value: "shoppingassistantservice:80"
   - name: cartservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
-    port: 80
+    ports:
+      - containerPort: 8080
+    env:
+      - name: PORT
+        value: "8080"
   - name: productcatalogservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
-    port: 80
+    ports:
+        - containerPort: 3550
     env:
       - name: EXTRA_LATENCY
         value: "5s"
+      - name: PORT
+        value: "3550"
   - name: currencyservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
-    port: 7000
+    ports:
+      - name: grpc
+        containerPort: 7000
     env:
       - name: PORT
         value: "7000"
@@ -85,52 +95,59 @@ services:
         value: './proto/demo.proto'
       - name: HEALTH_PROTO_PATH
         value: './proto/grpc/health/v1/health.proto'
-    volumeMounts:
-      - name: gcp-credentials
-        mountPath: /etc/credentials
-        readOnly: true
   - name: paymentservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
-    port: 80
+    ports:
+      - containerPort: 50051
     env:
       - name: PORT
-        value: "8080"
+        value: "50051"
       - name: GOOGLE_CLOUD_PROJECT
-        value: "your-project-id"
+        value: "mon-project-id"
   - name: shippingservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
     port: 80
+    env:
+      - name: APP_PORT
+        value: "50051"
+      - name: PORT
+        value: 50051
   - name: emailservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
     port: 80
   - name: checkoutservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
-    port: 80
+    ports:
+      - containerPort: 5050
     env:
-      - name: SHIPPING_SERVICE_ADDR
-        value: shippingservice:80
+      - name: PORT
+        value: "5050"
       - name: PRODUCT_CATALOG_SERVICE_ADDR
-        value: productcatalogservice:80
-      - name: CURRENCY_SERVICE_ADDR
-        value: currencyservice:80
-      - name: CART_SERVICE_ADDR
-        value: cartservice:80
-      - name: EMAIL_SERVICE_ADDR
-        value: emailservice:80
+        value: "productcatalogservice:3550"
+      - name: SHIPPING_SERVICE_ADDR
+        value: "shippingservice:50051"
       - name: PAYMENT_SERVICE_ADDR
-        value: paymentservice:80
-      - name: RECOMMENDATION_SERVICE_ADDR
-        value: recommendationservice:80
+        value: "paymentservice:50051"
+      - name: EMAIL_SERVICE_ADDR
+        value: "emailservice:5000"
+      - name: CURRENCY_SERVICE_ADDR
+        value: "currencyservice:7000"
+      - name: CART_SERVICE_ADDR
+        value: "cartservice:7070"
   - name: recommendationservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
-    port: 80
+    ports:
+      - containerPort: 8080
+      - name: grpc
+        port: 8080
+        targetPort: 8080
     env:
-      - name: PRODUCT_CATALOG_SERVICE_ADDR
-        value: productcatalogservice:80
+      - name: PORT
+        value: "8080"
   - name: adservice
     image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
-    port: 80
-volumes:
-  - name: gcp-credentials
-    secret:
-      secretName: gcp-credentials
+    ports:
+      - containerPort: 9555
+    env:
+    - name: PORT
+      value: "9555"
