@@ -15,22 +15,45 @@ spec:
       labels:
         app: {{ $service.name }}
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
         - name: {{ $service.name }}
           image: "{{ $service.image }}"
           ports:
-            - containerPort: {{ $service.port }}
+            {{- range $port := $service.ports }}
+            - containerPort: {{ $port.containerPort }}
+            {{- end }}
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
+          {{- if $service.env }}
           env:
             {{- range $env := $service.env }}
             - name: {{ $env.name }}
               value: {{ $env.value | quote }}
             {{- end }}
+          {{- end }}
+          {{- if $service.livenessProbe }}
+          livenessProbe:
+            {{- toYaml $service.livenessProbe | nindent 12 }}
+          {{- end }}
+          {{- if $service.readinessProbe }}
+          readinessProbe:
+            {{- toYaml $service.readinessProbe | nindent 12 }}
+          {{- end }}
       imagePullSecrets:
         - name: {{ $.Values.imagePullSecretsName }}
 ---
 {{- end }}
+
 
 apiVersion: apps/v1
 kind: Deployment
@@ -48,9 +71,13 @@ spec:
       labels:
         app: redis
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+        fsGroup: 999
       containers:
         - name: redis
-          image: redis:latest
+          image: redis:7.2-alpine
           ports:
             - containerPort: 6379
           volumeMounts:
@@ -58,6 +85,26 @@ spec:
               name: redis-storage
           securityContext:
             allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          readinessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 6379
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
       volumes:
         - name: redis-storage
           persistentVolumeClaim:
