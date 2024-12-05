@@ -3,7 +3,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: onlineboutique-ingress
-  namespace: onlineboutique
   annotations:
     {{- range $key, $value := .Values.ingress.ingressAnnotations }}
     {{ $key }}: {{ $value | quote }}
@@ -14,13 +13,11 @@ spec:
     - host: {{ (index .Values.ingress.ingressHosts 0).host | quote }}
       http:
         paths:
-          {{- range $service := .Values.services }}
-          - path: {{ if eq $service.name "frontend" }}/{{ else }}/{{ $service.name }}{{ end }}
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: {{ $service.name }}
+                name: frontend
                 port:
-                  number: {{ $service.port }}
-          {{- end }}
+                  number: 8080
 {{- end }}
