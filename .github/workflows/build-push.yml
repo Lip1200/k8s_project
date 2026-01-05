@@ -10,7 +10,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_PREFIX: ${{ github.repository_owner }}/k8s_project
 
 jobs:
   build-and-push:
@@ -62,7 +61,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/${{ matrix.service.name }}
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.service.name }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=sha,prefix=
