@@ -1,6 +1,6 @@
 replicaCount: 1
 
-imagePullSecretsName: gitlab-registry-secret
+imagePullSecretsName: ""
 
 podAnnotations: {}
 
@@ -41,7 +41,7 @@ resources:
 
 services:
   - name: frontend
-    image: ghcr.io/lip1200/k8s_project/frontend:latest
+    image: gcr.io/google-samples/microservices-demo/frontend:v0.8.0
     ports:
       - containerPort: 8080
     env:
@@ -61,6 +61,10 @@ services:
         value: "checkoutservice:5050"
       - name: AD_SERVICE_ADDR
         value: "adservice:9555"
+      - name: SHOPPING_ASSISTANT_SERVICE_ADDR
+        value: "shoppingassistantservice:8080"
+      - name: ENABLE_ASSISTANT
+        value: "false"
     readinessProbe:
       httpGet:
         path: /_healthz
@@ -74,7 +78,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: cartservice
-    image: ghcr.io/lip1200/k8s_project/cartservice:latest
+    image: gcr.io/google-samples/microservices-demo/cartservice:v0.8.0
     ports:
       - containerPort: 7070
     env:
@@ -93,7 +97,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: productcatalogservice
-    image: ghcr.io/lip1200/k8s_project/productcatalogservice:latest
+    image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.8.0
     ports:
       - containerPort: 3550
     env:
@@ -112,7 +116,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: currencyservice
-    image: ghcr.io/lip1200/k8s_project/currencyservice:latest
+    image: gcr.io/google-samples/microservices-demo/currencyservice:v0.8.0
     ports:
       - containerPort: 7000
     env:
@@ -131,7 +135,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: paymentservice
-    image: ghcr.io/lip1200/k8s_project/paymentservice:latest
+    image: gcr.io/google-samples/microservices-demo/paymentservice:v0.8.0
     ports:
       - containerPort: 50051
     env:
@@ -150,7 +154,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: shippingservice
-    image: ghcr.io/lip1200/k8s_project/shippingservice:latest
+    image: gcr.io/google-samples/microservices-demo/shippingservice:v0.8.0
     ports:
       - containerPort: 50051
     env:
@@ -167,7 +171,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: emailservice
-    image: ghcr.io/lip1200/k8s_project/emailservice:latest
+    image: gcr.io/google-samples/microservices-demo/emailservice:v0.8.0
     ports:
       - containerPort: 5000
     env:
@@ -186,7 +190,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: checkoutservice
-    image: ghcr.io/lip1200/k8s_project/checkoutservice:latest
+    image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.8.0
     ports:
       - containerPort: 5050
     env:
@@ -215,7 +219,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: recommendationservice
-    image: ghcr.io/lip1200/k8s_project/recommendationservice:latest
+    image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.8.0
     ports:
       - containerPort: 8080
     env:
@@ -236,7 +240,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: adservice
-    image: ghcr.io/lip1200/k8s_project/adservice:latest
+    image: gcr.io/google-samples/microservices-demo/adservice:v0.8.0
     ports:
       - containerPort: 9555
     env:

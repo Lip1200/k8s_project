@@ -49,8 +49,10 @@ spec:
           readinessProbe:
             {{- toYaml $service.readinessProbe | nindent 12 }}
           {{- end }}
+      {{- if $.Values.imagePullSecretsName }}
       imagePullSecrets:
         - name: {{ $.Values.imagePullSecretsName }}
+      {{- end }}
 ---
 {{- end }}
 
