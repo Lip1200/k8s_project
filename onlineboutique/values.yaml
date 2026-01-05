@@ -41,7 +41,7 @@ resources:
 
 services:
   - name: frontend
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/frontend:latest
+    image: ghcr.io/lip1200/k8s_project/frontend:latest
     ports:
       - containerPort: 8080
     env:
@@ -74,7 +74,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: cartservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/cartservice:latest
+    image: ghcr.io/lip1200/k8s_project/cartservice:latest
     ports:
       - containerPort: 7070
     env:
@@ -93,7 +93,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: productcatalogservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/productcatalogservice:latest
+    image: ghcr.io/lip1200/k8s_project/productcatalogservice:latest
     ports:
       - containerPort: 3550
     env:
@@ -112,7 +112,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: currencyservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/currencyservice:latest
+    image: ghcr.io/lip1200/k8s_project/currencyservice:latest
     ports:
       - containerPort: 7000
     env:
@@ -131,7 +131,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: paymentservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/paymentservice:latest
+    image: ghcr.io/lip1200/k8s_project/paymentservice:latest
     ports:
       - containerPort: 50051
     env:
@@ -150,7 +150,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: shippingservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/shippingservice:latest
+    image: ghcr.io/lip1200/k8s_project/shippingservice:latest
     ports:
       - containerPort: 50051
     env:
@@ -167,7 +167,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: emailservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/emailservice:latest
+    image: ghcr.io/lip1200/k8s_project/emailservice:latest
     ports:
       - containerPort: 5000
     env:
@@ -186,7 +186,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: checkoutservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/checkoutservice:latest
+    image: ghcr.io/lip1200/k8s_project/checkoutservice:latest
     ports:
       - containerPort: 5050
     env:
@@ -215,7 +215,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: recommendationservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/recommendationservice:latest
+    image: ghcr.io/lip1200/k8s_project/recommendationservice:latest
     ports:
       - containerPort: 8080
     env:
@@ -236,7 +236,7 @@ services:
       initialDelaySeconds: 15
       periodSeconds: 15
   - name: adservice
-    image: registry.gitlab.unige.ch/filipe.ramos/k8s-project/adservice:latest
+    image: ghcr.io/lip1200/k8s_project/adservice:latest
     ports:
       - containerPort: 9555
     env:
