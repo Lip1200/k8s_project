@@ -26,16 +26,17 @@ RUN npm install --only=production
 # Final minimal image
 FROM node:20-alpine
 
+# Create non-root user first
+RUN adduser -D -u 1000 appuser
+
 WORKDIR /app
 
 # Copy node_modules from builder
 COPY --from=builder /app/node_modules ./node_modules
 
 # Copy application files
-COPY . .
+COPY --chown=appuser:appuser . .
 
-# Run as non-root user
-RUN adduser -D -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
 
 ENV PORT=7000

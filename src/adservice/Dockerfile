@@ -21,14 +21,14 @@ WORKDIR /app
 COPY gradlew gradlew.bat settings.gradle build.gradle ./
 COPY gradle ./gradle
 
-# Download dependencies
+# Ensure gradlew is executable and download dependencies
 RUN chmod +x gradlew && ./gradlew downloadRepos --no-daemon
 
 # Copy source code
 COPY . .
 
-# Build the application
-RUN ./gradlew installDist --no-daemon
+# Ensure gradlew is still executable after COPY and build
+RUN chmod +x gradlew && ./gradlew installDist --no-daemon
 
 # Runtime stage with JRE only
 FROM eclipse-temurin:21-jre-alpine
