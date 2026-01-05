@@ -12,22 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM eclipse-temurin:21-jdk-alpine AS builder
+FROM eclipse-temurin:21-jdk AS builder
 
 WORKDIR /app
 
 COPY . .
 
 RUN chmod +x gradlew && \
-    ./gradlew downloadRepos --no-daemon && \
+    ./gradlew downloadRepos && \
     ./gradlew installDist --no-daemon
 
 # Runtime stage with JRE only
-FROM eclipse-temurin:21-jre-alpine
+FROM eclipse-temurin:21-jre
 
 WORKDIR /app
 
-# Copy built application from builder
 COPY --from=builder /app/build/install/hipstershop ./
 
 ENV PORT=9555
